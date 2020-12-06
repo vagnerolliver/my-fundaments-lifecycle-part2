@@ -1,7 +1,7 @@
 import database from '../database.json'
 import Person from './person.js'
 import TerminalController from './terminalController.js'
-
+import { save } from './repository.js'
 
  const DEFAULT_LANG = 'pt-BR'
  const STOP_TERMINAL = ':q'
@@ -21,7 +21,7 @@ import TerminalController from './terminalController.js'
 
         const person = Person.generateInstanceFromStrig(answer)
         terminalController.updateTable(person.formatted(DEFAULT_LANG))
-
+        save(person)
         return mainLoop()
      } 
      catch (err) {
