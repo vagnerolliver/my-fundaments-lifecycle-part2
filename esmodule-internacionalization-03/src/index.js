@@ -20,7 +20,7 @@ import TerminalController from './terminalController.js'
         }
 
         const person = Person.generateInstanceFromStrig(answer)
-        console.log('person', person.formatted(DEFAULT_LANG))
+        terminalController.updateTable(person.formatted(DEFAULT_LANG))
 
         return mainLoop()
      } 
