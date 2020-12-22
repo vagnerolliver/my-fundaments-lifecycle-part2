@@ -7,3 +7,9 @@ export const save = async (data) => {
 
     await writeFile(databaseFile, JSON.stringify(currentData))
 }
+
+export const read = async () => {
+    const { pathname: databaseFile } = new URL('./../database.json', import.meta.url)
+    const currentData = JSON.parse(await readFile(databaseFile))
+    return currentData
+}

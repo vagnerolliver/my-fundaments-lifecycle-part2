@@ -3,20 +3,25 @@ import chalk from 'chalk'
 import chalkTable from 'chalk-table'
 import DraftLog from 'draftlog'
 import Person from './person.js'
-
+import TerminalService from './terminalService.js'
+const defaultFactory = () => ({
+    terminalService: new TerminalService()
+})
 export default class TerminalController {
-    constructor() {
+    constructor(dependencies = defaultFactory()) {
         this.print = {}
         this.data = {}  
+        this.terminalService = dependencies.terminalService  
     }
 
-    initializeTerminial(database, language) {
+    async initializeTerminial(language) {
         DraftLog(console).addLineListener(process.stdin)
         this.terminal = readline.createInterface({
             input: process.stdin, 
             output: process.stdout
         })
 
+        const database = await this.terminalService.read()
         this.initializeTable(database, language)
     }
 
